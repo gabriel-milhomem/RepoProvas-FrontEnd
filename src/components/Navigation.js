@@ -49,6 +49,9 @@ const NavContainer = styled.nav`
 `;
 
 const MainContainer = styled.main`
-    max-width: 900px;
-    width: 100%;
+    width: 900px;
+    
+    @media (max-width: 600px) {
+        width: 100%;
+    }
 `;

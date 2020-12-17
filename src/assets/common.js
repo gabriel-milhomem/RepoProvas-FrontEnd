@@ -22,11 +22,16 @@ export default css`
         font-style: normal;
         font-weight: normal;
         font-family: 'Roboto', sans-serif;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
         color: var(--color-grey);
         text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         background: var(--bg-color);
+        overflow-x: hidden;
+    }
+
+    #root {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 `;

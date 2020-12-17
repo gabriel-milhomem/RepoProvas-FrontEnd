@@ -3,14 +3,21 @@ import styled from 'styled-components';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import Select from '../components/Select';
+import FormContext from '../context/FormContext';
 
 export default function FormTest() {
+    //const { categories, subjects, teachers } = useContext(FormContext);
     const [name, setName] = useState('');
     const [link, setLink] = useState('');
     const [category, setCategory] = useState('');
     const [subject, setSubject] = useState('');
     const [teacher, setTeacher] = useState('');
     const [disabledButton, setDisabledButton] = useState(false);
+
+
+    /*if(categories.length === 0 || subjects.length === 0 || teachers.length === 0) {
+        return <Text> Carregando... </Text>
+    }*/
 
     const handleSubmit = () => {
         return;
@@ -56,6 +63,9 @@ export default function FormTest() {
                         onChange={(e) => (e.target.value !== "0") && setCategory(e.target.value)}
                     >
                         <option value="0"> Selecione a categoria </option>
+                        {/*
+                            categories.map(c => <option value={c.name}> {c.name} </option>)
+                        */}
                     </Select>
                 </FieldSelect>
 
@@ -68,6 +78,9 @@ export default function FormTest() {
                         onChange={(e) => (e.target.value !== "0") && setSubject(e.target.value)}
                     >
                         <option value="0"> Selecione a disciplina </option>
+                        {/*
+                            subjects.map(s => <option value={s.name}> {s.name} </option>)
+                        */}
                     </Select>
                 </FieldSelect>
 
@@ -80,6 +93,10 @@ export default function FormTest() {
                         onChange={(e) => (e.target.value !== "0") && setTeacher(e.target.value)}
                     >
                         <option value="0"> Selecione o docente </option>
+
+                        {/*
+                            teachers.map(t => <option value={t.name}> {t.name} </option>)
+                        */}
                     </Select>
                 </FieldSelect>
             </Form>
@@ -134,9 +151,19 @@ const Form = styled.form`
 `;
 
 const Container = styled.section`
-    max-width: 900px;
+    width: 900px;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 0 10px;
+
+    @media (max-width: 600px) {
+        width: 100%;
+    }
+`;
+
+const Text = styled.h3`
+    color: var(--color-green);
+    font-size: var(--font-small);
+    font-weight: bold;
 `;
