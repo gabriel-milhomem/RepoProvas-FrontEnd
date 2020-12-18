@@ -1,26 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import Select from '../components/Select';
 import FormContext from '../context/FormContext';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 export default function FormTest() {
-    //const { categories, subjects, teachers } = useContext(FormContext);
+    const { categories, subjects, teachers, setTeachers } = useContext(FormContext);
     const [name, setName] = useState('');
     const [link, setLink] = useState('');
-    const [category, setCategory] = useState('');
-    const [subject, setSubject] = useState('');
-    const [teacher, setTeacher] = useState('');
+    const [category, setCategory] = useState(undefined);
+    const [subject, setSubject] = useState(undefined);
+    const [teacher, setTeacher] = useState(undefined);
     const [disabledButton, setDisabledButton] = useState(false);
+    const history = useHistory();
 
+    if(subject) {
+        axios
+            .get(`http://localhost:3000/api/teachers/subjects/${subject}`)
+            .then(res => {
+                setTeachers(res.data);
+            })
+            .catch(err => {
+                alert('Houve um erro');
+                console.log(err.response);
+            });
+    }
 
-    /*if(categories.length === 0 || subjects.length === 0 || teachers.length === 0) {
+    if(categories.length === 0 || subjects.length === 0 || teachers.length === 0) {
         return <Text> Carregando... </Text>
-    }*/
+    }
 
-    const handleSubmit = () => {
-        return;
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (disabledButton) return;
+        setDisabledButton(true);
+        
+        if(!subject || !teacher || !category) {
+            setDisabledButton(false);
+            alert('Selecione todos os campos');
+            return;
+        }
+        
+        const test = {name, link, category, subject, teacher};
+        axios
+            .post('http://localhost:3000/api/tests', test)
+            .then(res => {
+                setDisabledButton(false);
+                history.push('/');
+            })
+            .catch(err => {
+                if (err.response.status === 422) { 
+                    alert('Preencha corretamente os campos');
+                } else {
+                    alert('Houve um erro no envio');
+                } 
+                console.log(err.response);
+                setDisabledButton(false);
+            });
     }
 
     return (
@@ -63,9 +102,9 @@ export default function FormTest() {
                         onChange={(e) => (e.target.value !== "0") && setCategory(e.target.value)}
                     >
                         <option value="0"> Selecione a categoria </option>
-                        {/*
-                            categories.map(c => <option value={c.name}> {c.name} </option>)
-                        */}
+                        {
+                            categories.map(c => <option key={c.id} value={c.id}> {c.name} </option>)
+                        }
                     </Select>
                 </FieldSelect>
 
@@ -78,9 +117,9 @@ export default function FormTest() {
                         onChange={(e) => (e.target.value !== "0") && setSubject(e.target.value)}
                     >
                         <option value="0"> Selecione a disciplina </option>
-                        {/*
-                            subjects.map(s => <option value={s.name}> {s.name} </option>)
-                        */}
+                        {
+                            subjects.map(s => <option key={s.id} value={s.id}> {s.name} </option>)
+                        }
                     </Select>
                 </FieldSelect>
 
@@ -94,27 +133,31 @@ export default function FormTest() {
                     >
                         <option value="0"> Selecione o docente </option>
 
-                        {/*
-                            teachers.map(t => <option value={t.name}> {t.name} </option>)
-                        */}
+                        {
+                            teachers.map(t => <option key= {t.id} value={t.id}> {t.name} </option>)
+                        }
                     </Select>
                 </FieldSelect>
-            </Form>
 
-            <Button
-                width='15%'
-                height= '40px'
-                type='submit'
-                disabled={disabledButton}
-            >
-                Enviar
-            </Button>
+                <ButtonSubmit
+                    width='15%'
+                    height= '40px'
+                    type='submit'
+                    disabled={disabledButton}
+                >
+                    Enviar
+                </ButtonSubmit>
+            </Form>
         </Container>
     );
 }
 
 const Label = styled.label`
     margin-bottom: 8px;
+`;
+
+const ButtonSubmit = styled(Button)`
+    margin: 0 auto 10px auto;
 `;
 
 const Field = styled.div`
@@ -147,6 +190,7 @@ const Form = styled.form`
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     flex-wrap: wrap;
 `;
 

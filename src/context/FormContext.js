@@ -45,6 +45,7 @@ export function FormProvider(props) {
         categories,
         subjects,
         teachers,
+        setTeachers
     }
 
     return (
