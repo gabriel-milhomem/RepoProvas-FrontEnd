@@ -8,10 +8,6 @@ import Container from '../components/Container';
 export default function ShowTeachers() {
     const [teachers, setTeachers] = useState([]);
 
-    /*if(teachers.length === 0) {
-        return <Text> Carregando... </Text>
-    }*/
-
     useEffect(() => {
         axios
             .get(`http://localhost:3000/api/teachers`)
@@ -23,6 +19,10 @@ export default function ShowTeachers() {
                 console.log(err.response);
             });
     }, []);
+
+    if(teachers.length === 0) {
+        return <Text> Carregando... </Text>
+    }
 
     return (
         <Container>
