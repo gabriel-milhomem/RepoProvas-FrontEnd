@@ -12,20 +12,25 @@ export default function FormTest() {
     const { categories, subjects, teachers, setTeachers } = useContext(FormContext);
     const [name, setName] = useState('');
     const [link, setLink] = useState('');
-    const [category, setCategory] = useState('');
-    const [subject, setSubject] = useState('');
-    const [teacher, setTeacher] = useState('');
+    const [category, setCategory] = useState(undefined);
+    const [subject, setSubject] = useState(undefined);
+    const [teacher, setTeacher] = useState(undefined);
     const [disabledButton, setDisabledButton] = useState(false);
     const [disabledSelect, setDisabledSelect] = useState(true);
+    const [disabledSubject, setDisabledSubject] = useState(false);
+    
     const history = useHistory();
 
     useEffect(() => {
         if(!subject) return;
+        setDisabledSubject(true);
         axios
             .get(`https://repoprovas-backend-milhomem.herokuapp.com/api/teachers/subjects/${subject}`)
             .then(res => {
                 setTeachers(res.data);
                 setDisabledSelect(false);
+                setTeacher("0");
+                setDisabledSubject(false);
             })
             .catch(err => {
                 alert('Houve um erro');
@@ -42,7 +47,7 @@ export default function FormTest() {
         if (disabledButton) return;
         setDisabledButton(true);
         
-        if(!subject || !teacher || !category) {
+        if(!subject || teacher === "0" || !category) {
             setDisabledButton(false);
             alert('Selecione todos os campos');
             return;
@@ -117,6 +122,7 @@ export default function FormTest() {
                         name='subject' 
                         id='subjectId' 
                         value={subject}
+                        disabled={disabledSubject}
                         onChange={(e) => (e.target.value !== "0") && setSubject(e.target.value)}
                     >
                         <option value="0"> Selecione a disciplina </option>
