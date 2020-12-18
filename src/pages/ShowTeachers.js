@@ -1,10 +1,29 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from 'axios';
 
 import Container from '../components/Container';
 
 export default function ShowTeachers() {
+    const [teachers, setTeachers] = useState([]);
+
+    /*if(teachers.length === 0) {
+        return <Text> Carregando... </Text>
+    }*/
+
+    useEffect(() => {
+        axios
+            .get(`http://localhost:3000/api/teachers`)
+            .then(response => {
+                setTeachers(response.data);
+            })
+            .catch(err => {
+                alert('Houve um erro');
+                console.log(err.response);
+            });
+    }, []);
+
     return (
         <Container>
             <TitleContainer>
@@ -15,11 +34,14 @@ export default function ShowTeachers() {
                     Num. Provas
                 </Title>
             </TitleContainer>
-
-            <TeacherContainer>
-                <LinkTeacher to='teacher/:id'> Luis Fernando </LinkTeacher>
-                <LinkTeacher to='teacher/:id'> 4 </LinkTeacher >
-            </TeacherContainer>
+            {
+                teachers.map(t => 
+                    <TeacherContainer key={t.id}>
+                        <LinkTeacher to={`teacher/${t.id}`}> {t.name} </LinkTeacher>
+                        <LinkTeacher to={`teacher/${t.id}`}> {t.numberTests} </LinkTeacher>
+                    </TeacherContainer>
+                )
+            }
         </Container>
     );
 }
@@ -55,4 +77,10 @@ const Title = styled.h2`
     @media (max-width: 600px) {
         font-size: var(--font-small);
     }
+`;
+
+const Text = styled.h3`
+    color: var(--color-green);
+    font-size: var(--font-small);
+    font-weight: bold;
 `;
