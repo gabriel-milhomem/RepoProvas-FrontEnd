@@ -18,7 +18,6 @@ export function FormProvider(props) {
             })
             .catch(err => {
                 alert('Houve um erro');
-                console.log(err.response);
             });
         axios
             .get(`http://localhost:3000/api/subjects`)
@@ -27,7 +26,6 @@ export function FormProvider(props) {
             })
             .catch(err => {
                 alert('Houve um erro');
-                console.log(err.response);
             });
     }, []);
 

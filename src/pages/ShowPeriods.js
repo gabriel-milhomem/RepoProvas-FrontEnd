@@ -16,7 +16,6 @@ export default function ShowPeriods() {
             })
             .catch(err => {
                 alert('Houve um erro');
-                console.log(err.response);
             });
     }, []);
 
@@ -28,14 +27,18 @@ export default function ShowPeriods() {
         <Container>
             <PeriodContainer>
                 {
-                    periods.map(period => (
-                        <FieldPeriod key={period.id}>
+                    periods.map((period, i) => (
+                        <FieldPeriod key={i}>
                             <Period> {period.name} </Period>
                             {
                                 period.subjects.map(s => (
-                                    <>
-                                        <LinkPeriod to={`subject/${s.id}`}> {s.name} </LinkPeriod> <br/>
-                                    </>
+                                    <React.Fragment key={s.id}>
+                                        <LinkPeriod
+                                            to={`subject/${s.id}`}
+                                        > 
+                                            {s.name} 
+                                        </LinkPeriod> <br/>
+                                    </React.Fragment>
                                 ))
                             }
                         </FieldPeriod>

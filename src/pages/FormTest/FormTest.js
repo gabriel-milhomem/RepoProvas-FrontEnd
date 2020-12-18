@@ -1,12 +1,12 @@
 import React, { useState, useContext } from 'react';
-import styled from 'styled-components';
-import Input from '../components/Input';
-import Button from '../components/Button';
-import Select from '../components/Select';
-import Container from '../components/Container';
-import FormContext from '../context/FormContext';
-import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+
+import Input from '../../components/Input';
+import Select from '../../components/Select';
+import Container from '../../components/Container';
+import FormContext from '../../context/FormContext';
+import {Label, ButtonSubmit, Field, FieldSelect, FormTitle, Form, Text} from './Form.styles';
 
 export default function FormTest() {
     const { categories, subjects, teachers, setTeachers } = useContext(FormContext);
@@ -26,7 +26,6 @@ export default function FormTest() {
             })
             .catch(err => {
                 alert('Houve um erro');
-                console.log(err.response);
             });
     }
 
@@ -58,7 +57,6 @@ export default function FormTest() {
                 } else {
                     alert('Houve um erro no envio');
                 } 
-                console.log(err.response);
                 setDisabledButton(false);
             });
     }
@@ -152,51 +150,3 @@ export default function FormTest() {
         </Container>
     );
 }
-
-const Label = styled.label`
-    margin-bottom: 8px;
-`;
-
-const ButtonSubmit = styled(Button)`
-    margin: 0 auto 10px auto;
-`;
-
-const Field = styled.div`
-    width: 47%;
-    margin-bottom: 10px;
-
-    @media (max-width: 600px) {
-        width: 100%;
-    }
-`;
-
-const FieldSelect = styled.div`
-    width: 30%;
-    margin-bottom: 10px;
-
-    @media (max-width: 600px) {
-        width: 100%;
-    }
-`;
-
-const FormTitle = styled.h2`
-    font-family: 'Montserrat', sans-serif;
-    font-size: var(--font-normal);
-    font-weight: bold;
-    margin: 20px 0px;
-    color: var(--color-black);
-`;
-
-const Form = styled.form`
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-`;
-
-const Text = styled.h3`
-    color: var(--color-green);
-    font-size: var(--font-small);
-    font-weight: bold;
-`;

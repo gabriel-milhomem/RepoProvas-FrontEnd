@@ -16,7 +16,6 @@ export default function ShowTeachers() {
             })
             .catch(err => {
                 alert('Houve um erro');
-                console.log(err.response);
             });
     }, []);
 

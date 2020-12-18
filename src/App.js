@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import GlobalStyle from './assets';
 import Navigation from './components/Navigation';
-import FormTest from './pages/FormTest';
+import FormTest from './pages/FormTest/FormTest';
 import ShowTeachers from './pages/ShowTeachers';
 import ShowPeriods from './pages/ShowPeriods';
 import TeacherTests from './pages/TeacherTests.js';
