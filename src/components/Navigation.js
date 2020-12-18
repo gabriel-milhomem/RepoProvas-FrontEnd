@@ -16,12 +16,19 @@ export default function Navigation() {
             </Title>
             
             <NavContainer>
-                
-                <Button width='25%' height='50px'>
+                <Button 
+                    onClick= {() => history.push('/listPeriods')} 
+                    width='25%'
+                    height='50px'
+                >
                     Por disciplina
                 </Button>
                 
-                <Button width='25%' height='50px'>
+                <Button 
+                    onClick= {() => history.push('/listTeacher')}
+                    width='25%'
+                    height='50px'
+                >
                     Por professor
                 </Button>
                 

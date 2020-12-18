@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import Select from '../components/Select';
+import Container from '../components/Container';
 import FormContext from '../context/FormContext';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
@@ -29,7 +30,7 @@ export default function FormTest() {
             });
     }
 
-    if(categories.length === 0 || subjects.length === 0 || teachers.length === 0) {
+    if(categories.length === 0 || subjects.length === 0) {
         return <Text> Carregando... </Text>
     }
 
@@ -192,18 +193,6 @@ const Form = styled.form`
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-`;
-
-const Container = styled.section`
-    width: 900px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0 10px;
-
-    @media (max-width: 600px) {
-        width: 100%;
-    }
 `;
 
 const Text = styled.h3`

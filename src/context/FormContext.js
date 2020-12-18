@@ -29,16 +29,6 @@ export function FormProvider(props) {
                 alert('Houve um erro');
                 console.log(err.response);
             });
-        
-        axios
-            .get(`http://localhost:3000/api/teachers`)
-            .then(response => {
-                setTeachers(response.data);
-            })
-            .catch(err => {
-                alert('Houve um erro');
-                console.log(err.response);
-            });
     }, []);
 
     const value = {
