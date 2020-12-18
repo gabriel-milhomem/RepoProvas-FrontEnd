@@ -18,6 +18,7 @@ export function FormProvider(props) {
             })
             .catch(err => {
                 alert('Houve um erro');
+                console.log('err');
             });
         axios
             .get(`https://repoprovas-backend-milhomem.herokuapp.com/api/subjects`)
@@ -26,6 +27,7 @@ export function FormProvider(props) {
             })
             .catch(err => {
                 alert('Houve um erro');
+                console.log('err');
             });
     }, []);
 

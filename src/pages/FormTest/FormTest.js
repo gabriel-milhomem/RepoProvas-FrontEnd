@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
@@ -12,14 +12,15 @@ export default function FormTest() {
     const { categories, subjects, teachers, setTeachers } = useContext(FormContext);
     const [name, setName] = useState('');
     const [link, setLink] = useState('');
-    const [category, setCategory] = useState(undefined);
-    const [subject, setSubject] = useState(undefined);
-    const [teacher, setTeacher] = useState(undefined);
+    const [category, setCategory] = useState('');
+    const [subject, setSubject] = useState('');
+    const [teacher, setTeacher] = useState('');
     const [disabledButton, setDisabledButton] = useState(false);
     const [disabledSelect, setDisabledSelect] = useState(true);
     const history = useHistory();
 
-    if(subject) {
+    useEffect(() => {
+        if(!subject) return;
         axios
             .get(`https://repoprovas-backend-milhomem.herokuapp.com/api/teachers/subjects/${subject}`)
             .then(res => {
@@ -28,8 +29,9 @@ export default function FormTest() {
             })
             .catch(err => {
                 alert('Houve um erro');
+                console.log(err);
             });
-    }
+    }, [subject]);
 
     if(categories.length === 0 || subjects.length === 0) {
         return <Text> Carregando... </Text>
@@ -50,8 +52,8 @@ export default function FormTest() {
         axios
             .post('https://repoprovas-backend-milhomem.herokuapp.com/api/tests', test)
             .then(res => {
-                setDisabledButton(false);
-                history.push('/');
+                history.push('listTeacher');
+                alert('Prova Enviada');
             })
             .catch(err => {
                 if (err.response.status === 422) { 
