@@ -10,7 +10,7 @@ export default function ShowTeachers() {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:3000/api/teachers`)
+            .get(`https://repoprovas-backend-milhomem.herokuapp.com/api/teachers`)
             .then(response => {
                 setTeachers(response.data);
             })

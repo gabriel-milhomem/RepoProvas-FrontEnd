@@ -11,7 +11,7 @@ export default function ShowPeriods() {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:3000/api/tests/teacher/${id}`)
+            .get(`https://repoprovas-backend-milhomem.herokuapp.com/api/tests/teacher/${id}`)
             .then(response => {
                 setTests(response.data);
             })

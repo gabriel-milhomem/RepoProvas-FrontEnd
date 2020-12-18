@@ -10,7 +10,7 @@ export default function ShowPeriods() {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:3000/api/subjects/period`)
+            .get(`https://repoprovas-backend-milhomem.herokuapp.com/api/subjects/period`)
             .then(response => {
                 setPeriods(response.data);
             })

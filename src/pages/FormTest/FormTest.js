@@ -20,7 +20,7 @@ export default function FormTest() {
 
     if(subject) {
         axios
-            .get(`http://localhost:3000/api/teachers/subjects/${subject}`)
+            .get(`https://repoprovas-backend-milhomem.herokuapp.com/api/teachers/subjects/${subject}`)
             .then(res => {
                 setTeachers(res.data);
             })
@@ -46,7 +46,7 @@ export default function FormTest() {
         
         const test = {name, link, category, subject, teacher};
         axios
-            .post('http://localhost:3000/api/tests', test)
+            .post('https://repoprovas-backend-milhomem.herokuapp.com/api/tests', test)
             .then(res => {
                 setDisabledButton(false);
                 history.push('/');

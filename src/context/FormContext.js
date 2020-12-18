@@ -12,7 +12,7 @@ export function FormProvider(props) {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:3000/api/categories`)
+            .get(`https://repoprovas-backend-milhomem.herokuapp.com/api/categories`)
             .then(res => {
                 setCategories(res.data);
             })
@@ -20,7 +20,7 @@ export function FormProvider(props) {
                 alert('Houve um erro');
             });
         axios
-            .get(`http://localhost:3000/api/subjects`)
+            .get(`https://repoprovas-backend-milhomem.herokuapp.com/api/subjects`)
             .then(response => {
                 setSubjects(response.data);
             })

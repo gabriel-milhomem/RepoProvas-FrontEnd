@@ -11,7 +11,7 @@ export default function SubjectTests() {
     
     useEffect(() => {
         axios
-            .get(`http://localhost:3000/api/tests/subject/${id}`)
+            .get(`https://repoprovas-backend-milhomem.herokuapp.com/api/tests/subject/${id}`)
             .then(response => {
                 setTests(response.data);
             })
