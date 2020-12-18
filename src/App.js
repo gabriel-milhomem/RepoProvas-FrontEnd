@@ -7,7 +7,7 @@ import Navigation from './components/Navigation';
 import FormTest from './pages/FormTest';
 import ShowTeachers from './pages/ShowTeachers';
 import ShowPeriods from './pages/ShowPeriods';
-import TeacherTests from './pages/TeacherTests';
+import TeacherTests from './pages/TeacherTests.js';
 import SubjectTests from './pages/SubjectTests';
 import { FormProvider } from './context/FormContext';
 
