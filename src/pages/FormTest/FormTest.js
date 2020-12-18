@@ -16,6 +16,7 @@ export default function FormTest() {
     const [subject, setSubject] = useState(undefined);
     const [teacher, setTeacher] = useState(undefined);
     const [disabledButton, setDisabledButton] = useState(false);
+    const [disabledSelect, setDisabledSelect] = useState(true);
     const history = useHistory();
 
     if(subject) {
@@ -23,6 +24,7 @@ export default function FormTest() {
             .get(`https://repoprovas-backend-milhomem.herokuapp.com/api/teachers/subjects/${subject}`)
             .then(res => {
                 setTeachers(res.data);
+                setDisabledSelect(false);
             })
             .catch(err => {
                 alert('Houve um erro');
@@ -128,6 +130,7 @@ export default function FormTest() {
                         name='teacher' 
                         id='teacherId' 
                         value={teacher}
+                        disabled={disabledSelect}
                         onChange={(e) => (e.target.value !== "0") && setTeacher(e.target.value)}
                     >
                         <option value="0"> Selecione o docente </option>
